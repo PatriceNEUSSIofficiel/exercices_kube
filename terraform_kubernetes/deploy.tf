@@ -2,43 +2,16 @@ provider "kubernetes" {
   config_path    = "~/.kube/config"
 }
 
-variable "pod_definition" {
-  type = list(object({
-    pod_name = string
-    namespace = string
-    image = string
-    is_default = bool 
-  }))
-
-  default = [ {
-    pod_name = "marwaney1"
-    namespace = "rashid"
-    image = "marwaney/ssh-server"
-    is_default = false
-  },{
-    pod_name = "marwaney2"
-    namespace = "rashid"
-    image = "marwaney/ssh-server"
-    is_default = false
-  },{
-    pod_name = "marwaney3"
-    namespace = "rashid"
-    image = "marwaney/ssh-server"
-    is_default = false
-  }]
-  
-}
 
 locals {
-     name = "patrice" 
+     name = "neussi" 
      type = "web"
 }
 
-resource "kubernetes_deployment" "pat_deployment" {
-   count = length(var.pod_definition)
+resource "kubernetes_deployment" "image_deployment" {
    metadata {
-     namespace = var.pod_definition[count.index].namespace
-     name = var.pod_definition[count.index].pod_name
+     namespace = "rashid"
+     name = local.name
      labels = {
        owner = local.name
        type = local.type
@@ -56,17 +29,8 @@ resource "kubernetes_deployment" "pat_deployment" {
       }
       spec {
         container {
-          name = var.pod_definition[count.index].pod_name
-          image = var.pod_definition[count.index].image
-        }
-        container {
-          name = var.pod_definition[count.index].pod_name
-          image = var.pod_definition[count.index].image
-        }
-        container {
-          name = var.pod_definition[count.index].pod_name
-          image = var.pod_definition[count.index].image
-
+          name = "patrice"
+          image = "patricehub/my_image"
         }
       }
     }

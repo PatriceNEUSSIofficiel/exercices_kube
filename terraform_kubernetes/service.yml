@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: marwaney-service
+  name: patrice-service
   namespace: rashid
   labels:
     owner: patrice
@@ -10,16 +10,9 @@ spec:
     owner: patrice
     type: service
   ports:
-  - name: marwaney/ssh-server 
+  - name: patricehub/my_image
     port: 80
     targetPort: 80
-  - name: marwaney/ssh-server
-    port: 4000
-    targetPort: 4000
+    NodePort: 8000
     protocol: TCP
-  - name: marwaney/ssh-server
-    port: 7000
-    targetPort: 7000
-  externalIPs:
-    - 10.0.0.3
   type: NodePort
